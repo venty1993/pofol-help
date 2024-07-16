@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .circle {
+      width: 400px;
+      height: 400px;
+      border: 1px solid gray;
+      border-radius: 50%;
+      position: relative;
+      margin: 100px;
+
+      display:flex;
+      justify-content: center;
+      align-items: center;
+
+      transition: 0.5s;
+    }
+
+    .container-position {
+      width: 0;
+      height: 0;
+      position: absolute;
+
+      display:flex;
+      justify-content: center;
+      align-items: center;
+
+      transform: translateY(-200px);
+      transform-origin: 200px center;
+
+    }
+    .container {
+      width: 200px;
+      height: 100px;
+      background-color: pink;
+      flex-shrink: 0;
+      transition: 0.5s;
+    }
+  </style>
+</head>
+<body>
+  <div class="circle">
+    <div class="container-position">
+      <div class="container">1</div>
+    </div>
+    <div class="container-position">
+      <div class="container">2</div>
+    </div>
+    <div class="container-position">
+      <div class="container">2</div>
+    </div>
+
+  </div>
+  
+  <script>
+    const circle = document.querySelector('.circle')
+    const position = circle.getElementsByClassName('container-position');
+    const count = position.length;
+    const angle = 360/count;
+    
+    let index = 0;
+
+    for(let i = 0 ; i < count ; i ++) {
+      position[i].style.transform = `translateX(-200px) rotate(${i*angle}deg)`
+    }
+
+    const set = () => {
+      circle.style.transform = `rotate(${-index * angle}deg)`
+      for(let i = 0 ; i < count ; i ++) {
+        position[i].children[0].style.transform = `rotate(${-i*360/count + (index * angle)}deg)` 
+      }
+    }
+    set()
+
+    window.addEventListener('keydown', (e) => {
+      switch(e.key){
+        case 'ArrowUp': 
+          index++;
+          break;
+        case 'ArrowDown' : 
+          index--;
+          break;
+      }
+      set();
+    })
+
+  </script>
+</body>
+</html>
