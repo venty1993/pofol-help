@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .box {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      /* background-color: pink; */
+      opacity: 0;
+      transition: 0.5s;
+      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .button-container {
+      position: absolute;
+    }
+
+    .active {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">1</div>
+  <div class="box">2</div>
+  <div class="box">3</div>
+
+  <div class="button-container">
+    <button class="prev">이전</button>
+    <button class="next">다음</button>
+  </div>
+  <script>
+    function func() {
+      const prevButton = document.querySelector('.prev');
+      const nextButton = document.querySelector('.next');
+      const boxs = document.getElementsByClassName('box');
+      let index = 0;
+  
+
+      nextButton.addEventListener('click', next)
+      prevButton.addEventListener('click', prev)
+
+      function activeBox() {
+        for(let i = 0 ; i < boxs.length ; i ++) {
+          boxs[i].classList.remove('active');
+        }
+        boxs[Math.abs(index%boxs.length)].classList.add('active');
+      }
+
+      function next(){
+        index++
+        activeBox()
+        console.log(index)
+      }
+      
+      function prev(){
+        index--
+        activeBox()
+        console.log(index)
+      }
+
+    }
+    func();
+    
+
+  </script>
+</body>
+</html>
